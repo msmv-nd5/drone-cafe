@@ -1,0 +1,61 @@
+<style>
+    .btn-small {
+        height: 24px;
+        line-height: 24px;
+        padding: 0 0.5rem;
+    }
+</style>
+<div class="container">
+    <nav>
+        <div class="nav-wrapper">
+            <a class="brand-logo" style="text-decoration: none">&nbsp; Drone Cafe - интерфейс повара</a>
+            <span class="kitchen"></span>
+        </div>
+    </nav><br />
+
+
+<div class="row">
+
+    <div class="col-md-6">
+
+        <ul class="collection with-header">
+            <li class="collection-header"><h5>Заказанные блюда</h5></li>
+            <li class="collection-item avatar" ng-repeat="singlePosition in orders | filter:{ status: 'new' }">
+
+                <img src="{{singlePosition.image}}" alt="" width="150px" height="150px" class="materialboxed circle">
+                <span class="title">{{singlePosition.title}}</span>
+                <p>
+                    Состав: <span ng-repeat="ing in singlePosition.ingredients track by $index">{{ing}} </span><br />
+                    <a class="waves-effect waves-light btn" ng-click="changeStatus(singlePosition, 'cooking')">Начать готовить</a>
+                </p>
+
+        </li>
+
+    </ul>
+
+</div>
+
+
+    <div class="col-md-6">
+
+        <ul class="collection with-header ">
+            <li class="collection-header"><h5>В процессе готовки</h5></li>
+            <li class="collection-item avatar" ng-repeat="singlePosition in orders | filter:{ status: 'cooking' }">
+
+                <img src="{{singlePosition.image}}" alt="" width="150px" height="150px" class="circle">
+                <span class="title">{{singlePosition.title}}</span>
+                <p>
+                    Состав: <span ng-repeat="ing in singlePosition.ingredients track by $index">{{ing}} </span><br>
+                    Готовится: <timer interval="1000" start-time="singlePosition.cookingStarted">{{hours}} ч., {{minutes}} мин., {{seconds}} сек.</timer><br />
+                    <a class="waves-effect waves-light btn" ng-click="changeStatus(singlePosition, 'deliver')">Готово</a>
+
+                </p>
+
+            </li>
+
+        </ul>
+
+    </div>
+
+</div>
+</div>

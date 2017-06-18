@@ -1,0 +1,52 @@
+<style>
+
+    html,
+    body {
+        height: 100%;
+    }
+    html {
+        display: table;
+        margin: auto;
+    }
+    body {
+        display: table-cell;
+        vertical-align: middle;
+        background: #4ECDC4;
+    }
+
+    #login-page {
+        width: 500px;
+
+    }
+
+
+</style>
+<div class="col s12 z-depth-6 card-panel">
+        <h1 class="header center teal-text text-lighten-2">Drone Cafe</h1><hr />
+        <form class="login-form" name="loginForm">
+            <div class="row">
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">perm_identity</i>
+                    <input class="validate" id="name" type="text" ng-model="user.name" required >
+                    <label for="email" data-error="wrong" data-success="">Имя</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">mail_outline</i>
+                    <input class="validate" id="email" type="email" ng-model="user.email" required>
+                    <label for="email" data-error="wrong" data-success="">Email</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <button class="btn waves-effect waves-light col s12" type="submit" name="action" ng-click="login()" data-ng-disabled="loginForm.$invalid">Вход
+                    </button>
+
+                </div>
+            </div>
+
+        </form>
+    </div>

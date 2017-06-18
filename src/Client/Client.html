@@ -1,0 +1,101 @@
+<style>
+    .btn-small {
+        height: 24px;
+        line-height: 24px;
+        padding: 0 0.5rem;
+    }
+</style>
+<div class="container">
+    <nav>
+        <div class="nav-wrapper">
+            <a href="#!" class="brand-logo" style="text-decoration: none">&nbsp; Drone Cafe</a>
+            <ul class="right hide-on-med-and-down">
+                <li>Привет, {{currentUser.name}}!</li>
+                <li>&nbsp;Баланс: {{currentUser.credit}} ГК</li>
+                <li><a class="waves-effect waves-light btn" ng-click="addCredits(100)">Пополнить</a></li>
+            </ul>
+        </div>
+    </nav><br />
+
+
+    <div class="row">
+        <div ng-class="list1Class">
+            <ul class="collection with-header">
+                <li class="collection-header"><h5>Заказ<a class="btn-floating red right" style="margin-top: -7px;" ng-click="openMenu()"><i class="material-icons">add</i></a></h5>
+                </li>
+                <li class="collection-item" ng-repeat="singlePosition in orders | filter:{ status: '!deleted'}">
+                    <p>
+                        <img src="{{singlePosition.image}}" alt="" width="150px" height="150px" align="left" vspace="5" hspace="15" class="circle">
+                    <h5>{{singlePosition.title}}</h5>
+
+                    Стоимость: {{singlePosition.price}} ГК<br />
+                    Рейтинг: {{singlePosition.rating}}<br>
+                    Состав: <span ng-repeat="ing in singlePosition.ingredients track by $index">{{ing}} </span><br />
+                    Статус: <span ng-if="singlePosition.status=='new'">заказано</span><span ng-if="singlePosition.status=='cooking'">готовится</span><span ng-if="singlePosition.status=='deliver'">доставляется</span>
+                    <span ng-if="singlePosition.status=='problem'">возникли сложности</span><span ng-if="singlePosition.status=='delivered'">подано</span>. Ожидание: <timer ng-if="singlePosition.status=='delivered'" interval="1000" auto-start="false" countdown="singlePosition.endtime">{{hours}} ч., {{minutes}} мин., {{seconds}} сек.</timer> <timer ng-if="singlePosition.status!='delivered'" interval="1000" start-time="singlePosition.starttime">{{hours}} ч., {{minutes}} мин., {{seconds}} сек.</timer><br />
+                    <div ng-if="singlePosition.status=='problem'"><hr />
+                        С доставкой заказа возникли сложности. Вы можете повторить заказ со скидкой в 5%, либо отменить его.
+                        <a ng-if="currentUser.credit < (singlePosition.price - (singlePosition.price/100*5) )" class="waves-effect waves-light btn btn-small disabled">Для повтора заказа пополните счёт на {{(singlePosition.price - (singlePosition.price/100*5)) - currentUser.credit}} ГК</a>
+                        <a ng-if="currentUser.credit >= singlePosition.price" class="waves-effect waves-light btn btn-small" ng-click="addToOrder(singlePosition)">Заказать за {{(singlePosition.price - (singlePosition.price/100*5))}} ГК</a>
+                        <a ng-if="currentUser.credit >= singlePosition.price" class="waves-effect waves-light btn btn-small" ng-click="changeStatus(singlePosition, 'deleted')">Отменить</a>
+                    </div>
+                    </p>
+                </li>
+            </ul>
+
+        </div>
+
+
+        <div ng-class="list4Class">
+
+            <ul class="collection" >
+                <li class="collection-header center-align"><h5>Меню<a class="btn-floating red right" style="margin-top: -7px; margin-right: 7px;" ng-click="addToOrder()"><i class="material-icons">clear</i></a></h5>
+                </li>
+
+            </ul>
+
+        </div>
+
+
+        <div ng-class="list2Class">
+
+            <ul class="collection">
+                <li class="collection-item avatar" ng-repeat="singlePosition in menuFirstList">
+
+                    <img src="{{singlePosition.image}}" alt="" width="150px" height="150px" class="materialboxed circle">
+                    <span class="title">{{singlePosition.title}}</span>
+                    <p>{{singlePosition.price}} ГК // rating: {{singlePosition.rating}}<br>
+                        <span ng-repeat="ing in singlePosition.ingredients track by $index">{{ing}} </span><br />
+                        <a ng-if="currentUser.credit < singlePosition.price" class="waves-effect waves-light btn btn-small disabled">Пополните баланс на {{singlePosition.price - currentUser.credit}} ГК</a>
+                        <a ng-if="currentUser.credit >= singlePosition.price" class="waves-effect waves-light btn btn-small" ng-click="addToOrder(singlePosition)">Заказать</a>
+
+                    </p>
+
+                </li>
+
+            </ul>
+
+        </div>
+
+
+        <div ng-class="list3Class">
+            <ul class="collection">
+                <li class="collection-item avatar" ng-repeat="singlePosition in menuSecondList">
+
+                    <img src="{{singlePosition.image}}" alt="" width="150px" height="150px" class="materialboxed circle">
+                    <span class="title">{{singlePosition.title}}</span>
+                    <p>{{singlePosition.price}} ГК // rating: {{singlePosition.rating}}<br>
+                        <span ng-repeat="ing in singlePosition.ingredients track by $index">{{ing}} </span><br>
+                        <a ng-if="currentUser.credit < singlePosition.price" class="waves-effect waves-light btn btn-small disabled">Пополните баланс на {{singlePosition.price - currentUser.credit}} ГК</a>
+                        <a ng-if="currentUser.credit >= singlePosition.price" class="waves-effect waves-light btn btn-small" ng-click="addToOrder(singlePosition)">Заказать</a>
+
+                    </p>
+
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+</div>
