@@ -1,6 +1,6 @@
 'use strict';
 
-droneCafe.controller('KitchenCtrl', function($scope, MenuService, $q, OrderService) {
+droneCafe.controller('KitchenCtrl', function ($scope, MenuService, $q, OrderService) {
 
     $scope.timerRunning = true;
 
@@ -17,13 +17,12 @@ droneCafe.controller('KitchenCtrl', function($scope, MenuService, $q, OrderServi
 
 
     function loadLists() {
-        OrderService.getAllOrders().then(function(response) {
+        OrderService.getAllOrders().then(function (response) {
             $scope.orders = response.data;
         });
     }
+
     loadLists();
-
-
 
 
 });

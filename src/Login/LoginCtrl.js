@@ -1,6 +1,6 @@
 'use strict';
 
-droneCafe.controller('LoginCtrl', ['$scope', '$cookies', 'UserService', '$location', function($scope, $cookies, UserService, $location) {
+droneCafe.controller('LoginCtrl', ['$scope', '$cookies', 'UserService', '$location', function ($scope, $cookies, UserService, $location) {
 
     $scope.user = {};
     $scope.user.credit = 0;
@@ -10,14 +10,15 @@ droneCafe.controller('LoginCtrl', ['$scope', '$cookies', 'UserService', '$locati
     let emailCookie = $cookies.get('email');
 
     if (emailCookie != undefined) {
-        UserService.getUser(emailCookie).then(function(response) {
+        UserService.getUser(emailCookie).then(function (response) {
             $scope.user.isLogged = true;
             $scope.user.name = nameCookie;
             $scope.user.email = emailCookie;
             $scope.user.credit = response.data[0].credit;
             UserService.setCurrentUser($scope.user);
-            if ($location.path() != "/kitchen"){
-            $location.path('/');}
+            if ($location.path() != "/kitchen") {
+                $location.path('/');
+            }
         });
     }
 
@@ -27,12 +28,14 @@ droneCafe.controller('LoginCtrl', ['$scope', '$cookies', 'UserService', '$locati
 
 
     $scope.login = function () {
-        UserService.getUser($scope.user.email).then(function(response) {
+        UserService.getUser($scope.user.email).then(function (response) {
             $scope.user.isLogged = true;
             $cookies.put('name', $scope.user.name);
             $cookies.put('email', $scope.user.email);
-            if (response.data[0] != undefined) {$scope.user.credit = response.data[0].credit;
-                UserService.setCurrentUser($scope.user);}
+            if (response.data[0] != undefined) {
+                $scope.user.credit = response.data[0].credit;
+                UserService.setCurrentUser($scope.user);
+            }
             else {
                 let userData = {};
                 userData.name = $scope.user.name;

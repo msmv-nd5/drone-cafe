@@ -1,16 +1,16 @@
 angular
     .module('DroneCafe')
-    .factory('UserService', function($http) {
+    .factory('UserService', function ($http) {
 
         let currentUser = {};
 
             return {
 
-                getUser: function(userEmail) {
+                getUser: function (userEmail) {
                     return $http.get('/api/v1/users/' + userEmail);
                 },
 
-                createUser: function(userData) {
+                createUser: function (userData) {
                     return $http({
                         method: 'POST',
                         url: '/api/v1/users/',
@@ -18,7 +18,7 @@ angular
                     });
                 },
 
-                editUser: function(userData) {
+                editUser: function (userData) {
                     return $http({
                         method: 'PUT',
                         url: '/api/v1/users/',
@@ -29,12 +29,11 @@ angular
                 getCurrentUser: function () {
                     return currentUser;
                 },
-                setCurrentUser: function(value) {
+                setCurrentUser: function (value) {
                     currentUser = value;
                 }
 
             }
 
         }
-
     );

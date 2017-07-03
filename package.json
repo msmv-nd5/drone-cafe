@@ -4,7 +4,9 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prestart": "npm install",
+    "start": "node app.js",
+    "test": "mocha"
   },
   "author": "",
   "license": "ISC",
@@ -22,6 +24,9 @@
     "mongodb": "^2.2.26",
     "mongoose": "^4.9.8",
     "netology-fake-drone-api": "^1.0.1",
-    "socket.io": "^2.0.3"
+    "socket.io": "^2.0.3",
+    "chai": "^4.0.0",
+    "mocha": "^3.4.2",
+    "supertest": "^3.0.0"
   }
 }
